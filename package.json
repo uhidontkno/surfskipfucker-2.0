@@ -9,6 +9,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12"
+    "@types/colors": "^1.2.1",
+    "cheerio": "^1.0.0-rc.12",
+    "colors": "^1.4.0"
   }
 }
