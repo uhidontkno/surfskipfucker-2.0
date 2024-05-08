@@ -1,0 +1,11 @@
+{
+  "name": "surfskipfucker-2.0",
+  "module": "fucker.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

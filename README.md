@@ -1,2 +1,2 @@
-# surfskipfucker-2.0
-Screw Surfskip in the ass by running this script
+# surfskipfucker 2.0
+Why is surfskip trying to revive themselves? 
