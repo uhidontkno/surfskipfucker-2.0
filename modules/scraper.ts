@@ -8,7 +8,6 @@ async function scrapeLinks(): Promise<string[]> {
         const url:any = c('script[type="module"]').attr('src');
         const jsRes = await fetch(new URL("https://links.surfskip.com"+url));
         const bundle = await jsRes.text();
-        
         const regex = /https?:\/\/[^"\s]+/g;
         const matches = bundle.match(regex);
         return matches || [];
