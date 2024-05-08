@@ -6,9 +6,10 @@ async function scrapeLinks(): Promise<string[]> {
         const html = await res.text();
         const c = cheerio.load(html);
         const url:any = c('script[type="module"]').attr('src');
-        const jsRes = await fetch(new URL(url));
+        const jsRes = await fetch(new URL("https://links.surfskip.com"+url));
         const bundle = await jsRes.text();
-        const regex = /(?i)\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/;
+        
+        const regex = /https?:\/\/[^"\s]+/g;
         const matches = bundle.match(regex);
         return matches || [];
     } catch (error) {
