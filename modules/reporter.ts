@@ -1,4 +1,4 @@
-async function reportLightspeed(email,domain,reason) {
+async function reportLightspeed(email:string,domain:string,reason:string) {
     let res = await fetch("https://production-archive-proxy-api.lightspeedsystems.com/archiveproxy", {
         "headers": {
           "accept": "application/json, text/plain, */*",
