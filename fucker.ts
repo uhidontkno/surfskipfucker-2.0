@@ -92,9 +92,11 @@ for (let i = 0; i < links.length; i++) {
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
     } else {
-        let reportOK = reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
+        let reportOK = await reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
         if (reportOK) {
             console.log("| ".gray + `✅ Sent ${links[i].replace("https://","").replaceAll("/","")} to lightspeed!`.green);
+        } else {
+            console.log("| ".gray + `❗ Failed to report ${links[i]}.`.red); skipped++;
         }
     }   
     console.write("                                             \n")
