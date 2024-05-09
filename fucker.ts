@@ -27,8 +27,8 @@ if (Number(method)) {
     break;
 } 
 }
-
-console.log("\n📬" + " Starting Report".blue + " (to lightspeed)".gray)
+console.log("\n📬" + " Starting Report".blue + " (to content keeper)".gray)
+console.log("📬" + " Starting Report".blue + " (to lightspeed)".gray)
 let email:string = await prompt("| ".gray + "📨 Report Email: ".blue);
 let reason:string = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
 if (reason.trim() == "" || !reason) {reason = "Surfskip Proxy"}
