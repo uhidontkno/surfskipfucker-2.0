@@ -84,6 +84,10 @@ for (let i = 0; i < links.length; i++) {
     console.write("\u001b[2A")
     console.write("\u001b[32D")
     let category = await filters.lightspeed(links[i])
+    if (remove.includes(links[i].replace("https://",""))) {
+        // silently skip for formatting purposes
+        skipped++;
+    } else 
     if (category[0].includes("security")) {
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
