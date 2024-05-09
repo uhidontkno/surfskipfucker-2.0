@@ -1,11 +1,13 @@
 const colors = require('colors');
 
+import { mkdir } from "node:fs/promises";
 import * as readline from 'node:readline/promises';  // This uses the promise-based APIs
 import { stdin as input, stdout as output } from 'node:process';
 
 import scraper from "./modules/scraper"
 import reporter from "./modules/reporter"
 import filters from "./modules/filters"
+
 
 async function prompt(ask:string) {
     const rl = readline.createInterface({ input, output });
@@ -69,3 +71,6 @@ switch (Number(method)) {
         console.log("| ".gray + "🔗" + " Got ".blue + String(links.length).green.bold + " links!".blue);
         break;
 }
+await mkdir(new URL("./tmp/", import.meta.url), { recursive: true });
+let file = Bun.write(new URL("./tmp/out.txt", import.meta.url),links.join("\n"))
+console.log("| ".gray + "💾" + " For your convenience, the scraped links are in: ".green + "tmp/out.txt".bold);
