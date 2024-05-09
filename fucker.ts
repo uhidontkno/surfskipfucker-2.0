@@ -76,7 +76,7 @@ let file = Bun.write(new URL("./tmp/out.txt", import.meta.url),links.join("\n"))
 console.log("| ".gray + "💾" + " For your convenience, the scraped links are in: ".green + "tmp/out.txt".bold);
 console.log("| ".gray);
 console.log("\n🤡" + " Reporting links...  ".rainbow + "MUAHAHAHAHA!".red.bold.underline);
-
+console.write("\n\n")
 let remove = ["status.surfskip.com/status/surfskip","whynotprivacy.com/blogs/privacy/proxies"]
 
 let skipped = 0;
