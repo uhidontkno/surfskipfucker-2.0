@@ -84,15 +84,17 @@ for (let i = 0; i < links.length; i++) {
     console.write("\u001b[2A")
     console.write("\u001b[32D")
     let category = await filters.lightspeed(links[i])
+    // console.write(category[0]) //debug
     if (remove.includes(links[i].replace("https://",""))) {
         // silently skip for formatting purposes
         skipped++;
     } else 
-    if (category[0].includes("security")) {
+    if (category[0] == "security" || category[0] == "security.proxy" ) {
+        
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
     } else {
-        let reportOK = await reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
+        let reportOK = true//await reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
         if (reportOK) {
             console.log("| ".gray + `✅ Sent ${links[i].replace("https://","").replaceAll("/","")} to lightspeed!`.green);
         } else {
