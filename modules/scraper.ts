@@ -16,4 +16,11 @@ async function scrapeLinks(): Promise<string[]> {
         return [];
     }
 }
-export default {scrapeLinks}
+async function scrapeGoogleDoc(): Promise<string[]> {
+    let res = await fetch("https://docs.google.com/document/u/0/export?format=txt&id=1ebE4sCBR6u7B4xPfSPKt29IpgOpdv8L7oe-DRHiu9GE&includes_info_params=true&cros_files=false")
+    let txt= await res.text()
+    const regex = /https?:\/\/[^"\s]+/g;
+    const matches = txt.match(regex);
+    return matches || [];
+}
+export default {scrapeLinks,scrapeGoogleDoc}
