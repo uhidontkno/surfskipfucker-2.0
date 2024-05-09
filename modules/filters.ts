@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 
 // Lightspeed
-async function lightspeedCategorize(num: number) {
+async function lightspeedCategorize(num: number): Promise<any> {
     let jFile:Blob = Bun.file("modules/lightspeed.json")
     let catJson = await jFile.json();
     for (let i = 0; i < catJson.length;i++) {
@@ -12,7 +12,7 @@ async function lightspeedCategorize(num: number) {
     return num // No category
 }
 
-async function lightspeed(url:string) {
+async function lightspeed(url:string): Promise<string[]> {
     let res = await fetch("https://production-archive-proxy-api.lightspeedsystems.com/archiveproxy",
         {
             "method":"POST",
@@ -37,7 +37,7 @@ async function lightspeed(url:string) {
 }
 
 // FortiGuard
-async function fortiguard(url:string) {
+async function fortiguard(url:string): Promise<string> {
     let res = await fetch("https://www.fortiguard.com/learnmore/dns",{
         "method":"POST",
         "headers": {
@@ -66,7 +66,7 @@ async function fortiguard(url:string) {
 
 // Palo Alto
 
-async function palo(domain: string): Promise<any> {
+async function palo(domain: string): Promise<string | string[]> {
     try {
         const res = await fetch(`https://urlfiltering.paloaltonetworks.com/single_cr/?url=${domain}`);
         const html = await res.text();

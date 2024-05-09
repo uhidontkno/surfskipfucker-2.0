@@ -10,5 +10,6 @@ async function reportLightspeed(email:string,domain:string,reason:string) {
         "body": `{\"query\":\"query SubmitIntoBFR($item: BFRSubmission!){\\n        item: custom_BFRSubmission(item: $item) {\\n            SubmittedURL\\n            ok\\n        }\\n      }\",\"variables\":{\"item\":{\"EmailAddress\":\"${email}\",\"Reason\":\"${reason}\",\"SubmittedURL\":\"${domain}\",\"Type\":\"DomainStandard\",\"Source\":\"archive\"}}}`,
         "method": "POST"
       });
+      return res.ok
 }
 export default {reportLightspeed}

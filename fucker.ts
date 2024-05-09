@@ -74,3 +74,35 @@ switch (Number(method)) {
 await mkdir(new URL("./tmp/", import.meta.url), { recursive: true });
 let file = Bun.write(new URL("./tmp/out.txt", import.meta.url),links.join("\n"))
 console.log("| ".gray + "💾" + " For your convenience, the scraped links are in: ".green + "tmp/out.txt".bold);
+console.log("| ".gray);
+console.log("\n🤡" + " Reporting links...  ".rainbow + "MUAHAHAHAHA!".red.bold.underline);
+
+let remove = ["status.surfskip.com/status/surfskip","whynotprivacy.com/blogs/privacy/proxies"]
+
+let skipped = 0;
+for (let i = 0; i < links.length; i++) {
+    console.write("\u001b[2A")
+    console.write("\u001b[32D")
+    let category = await filters.lightspeed(links[i])
+    if (category[0].includes("security")) {
+        console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
+        skipped++;
+    } else {
+        let reportOK = reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
+        if (reportOK) {
+            console.log("| ".gray + `✅ Sent ${links[i].replace("https://","").replaceAll("/","")} to lightspeed!`.green);
+        }
+    }   
+    console.write("                                             \n")
+    console.write("                                             \n")
+    console.write("\u001b[K")
+    console.write("\u001b[2A")
+    console.write("| ".gray + `🤡 Reported ${String((i+1) - skipped).bold} links!`.blue )
+    console.write("\u001b[1B")
+    console.write("\u001b[32D")
+    console.write("| ".gray + `🤡 Skipped ${String(skipped).bold} links!`.blue )
+    console.write("\u001b[1B")
+    
+}
+console.write("\u001b[32D")
+console.write("\n")
