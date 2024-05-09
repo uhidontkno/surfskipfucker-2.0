@@ -9,6 +9,7 @@ async function prompt(ask:string) {
     rl.close();
     return res;
 }
+console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
 console.clear();
 
@@ -26,4 +27,9 @@ if (Number(method)) {
     break;
 } 
 }
-console.log(method)
+
+console.log("\n📬" + " Starting Report".blue + " (to lightspeed)".gray)
+let email:string = await prompt("| ".gray + "📨 Report Email: ".blue);
+let reason:string = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
+if (reason.trim() == "" || !reason) {reason = "Surfskip Proxy"}
+console.log(email,reason)
