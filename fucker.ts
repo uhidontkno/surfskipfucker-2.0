@@ -3,6 +3,10 @@ const colors = require('colors');
 import * as readline from 'node:readline/promises';  // This uses the promise-based APIs
 import { stdin as input, stdout as output } from 'node:process';
 
+import scraper from "./modules/scraper"
+import reporter from "./modules/reporter"
+import filters from "./modules/filters"
+
 async function prompt(ask:string) {
     const rl = readline.createInterface({ input, output });
     let res = await rl.question(ask);
@@ -37,8 +41,31 @@ if (Number(method)) {
 }
 // console.log("\n📬" + " Starting Report".blue + " (to content keeper)".gray)
 console.log("📬" + " Starting Report".blue + " (to lightspeed)".gray)
-let email:string = await prompt("| ".gray + "📨 Report Email: ".blue);
+let email:string = await prompt("| ".gray + "📨 Report Email".blue + " [anonymous]".gray + ": ".blue);
+if (email.trim() == "" || !email) {
+    email = "lightspeedreports@xitroo.com"
+    console.write("\u001b[K")
+    console.write("\u001b[1A")
+    console.write("| ".gray + "📨 Report Email:".blue + " anonymous    \n")
+    console.log("|  ".gray + "  Using lightspeedreports@xitroo.com");
+}
 let reason:string = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
-if (reason.trim() == "" || !reason) {reason = "Surfskip Proxy"}
+if (reason.trim() == "" || !reason) {
+    reason = "Surfskip Proxy"
+    console.write("\u001b[K")
+    console.write("\u001b[1A")
+    console.write("| ".gray + "❔ Report Reason:".blue + " Surfskip Proxy    \n")
+}
 
 console.log("\n🔗" + " Scraping links...".blue)
+let links:string[] = [];
+switch (Number(method)) {
+    case 1:
+        links = await scraper.scrapeLinks();
+        console.log("| ".gray + "🔗" + " Got ".blue + String(links.length).green.bold + " links!".blue);
+        break;
+    case 2:
+        links = await scraper.scrapeGoogleDoc();
+        console.log("| ".gray + "🔗" + " Got ".blue + String(links.length).green.bold + " links!".blue);
+        break;
+}
