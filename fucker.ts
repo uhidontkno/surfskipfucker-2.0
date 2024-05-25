@@ -55,6 +55,11 @@ if (email.trim() == "" || !email) {
 }
 } else {
     let stdinEmail = (process.argv.indexOf("--email") + 1)
+    if (!process.argv[stdinEmail]) {
+        console.log("| ".gray + "📨 Report Email:".blue + ` ${"invalid".brightRed.bold}`)
+        console.log("| ".gray + "Use anonymous, none, or default if you want to use defaults.".brightRed.bold)
+        process.exit(1);
+    }
     if (process.argv[stdinEmail].includes("@") && !["anonymous","none","default"].includes(process.argv[stdinEmail])) {
         email = process.argv[stdinEmail]
         console.log("| ".gray + "📨 Report Email:".blue + ` ${process.argv[stdinEmail]} ${"(from stdin)".gray}`)
@@ -107,7 +112,7 @@ for (let i = 0; i < links.length; i++) {
         // silently skip for formatting purposes
         skipped++;
     } else 
-    if (category[0] == "security" || category[0] == "security.proxy" ) {
+    if (category[0].includes("security") || category[0].includes("proxy") || category[1].includes("security") || category[1].includes("proxy") ) {
         
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
