@@ -27,4 +27,4 @@ var options = {
     }
   }
 md.use(terminal,options);
-console.log(md.render(await Bun.file("HELP.md").text()))
+console.log(md.render((await Bun.file("HELP.md").text()).replaceAll("<br>","")))
