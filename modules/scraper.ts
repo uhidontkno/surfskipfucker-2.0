@@ -1,6 +1,6 @@
 import cheerio from 'cheerio';
 
-async function scrapeLinks(): Promise<string[]> {
+export async function scrapeLinks(): Promise<string[]> {
     try {
         const res = await fetch('https://links.surfskip.com');
         const html = await res.text();
@@ -16,7 +16,7 @@ async function scrapeLinks(): Promise<string[]> {
         return [];
     }
 }
-async function scrapeGoogleDoc(): Promise<string[]> {
+export async function scrapeGoogleDoc(): Promise<string[]> {
     let res = await fetch("https://docs.google.com/document/u/0/export?format=txt&id=1ebE4sCBR6u7B4xPfSPKt29IpgOpdv8L7oe-DRHiu9GE&includes_info_params=true&cros_files=false")
     let txt= await res.text()
     const regex = /https?:\/\/[^"\s]+/g;

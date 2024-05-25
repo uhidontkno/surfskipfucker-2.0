@@ -1,7 +1,7 @@
 import cheerio from 'cheerio';
 
 // Lightspeed
-async function lightspeedCategorize(num: number): Promise<any> {
+export async function lightspeedCategorize(num: number): Promise<any> {
     let jFile:Blob = Bun.file("modules/lightspeed.json")
     let catJson = await jFile.json();
     for (let i = 0; i < catJson.length;i++) {
@@ -12,7 +12,7 @@ async function lightspeedCategorize(num: number): Promise<any> {
     return num // No category
 }
 
-async function lightspeed(url:string): Promise<string[]> {
+export async function lightspeed(url:string): Promise<string[]> {
     let res = await fetch("https://production-archive-proxy-api.lightspeedsystems.com/archiveproxy",
         {
             "method":"POST",
