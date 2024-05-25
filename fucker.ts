@@ -37,6 +37,7 @@ while (true) {
             process.exit(0)
         }
         console.log("| Type your option: ".gray + process.argv[method] + " (from stdin)".gray)
+        method = process.argv[method];
         
     } else {
 method = await prompt("| Type your option: ".gray);
@@ -45,8 +46,15 @@ if (Number(method) == 0) {
     console.log("\n🚪" + " Exiting...");
     process.exit(0)
 } else
-if (Number(method)) {
+if (Number(method) && [1,2,3].includes(Number(method))) {
     break;
+} else {
+    console.log("❌" + " Not a valid choice.".brightRed.bold);
+    if (process.argv.indexOf("--method") != -1) {
+        
+        console.log("🚪" + " Exiting...");
+        process.exit(1)
+    }
 }
 }
 // console.log("\n📬" + " Starting Report".blue + " (to content keeper)".gray)
