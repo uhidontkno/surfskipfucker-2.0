@@ -43,13 +43,31 @@ if (Number(method)) {
 }
 // console.log("\n📬" + " Starting Report".blue + " (to content keeper)".gray)
 console.log("📬" + " Starting Report".blue + " (to lightspeed)".gray)
-let email:string = await prompt("| ".gray + "📨 Report Email".blue + " [anonymous]".gray + ": ".blue);
+let email = ""
+if (process.argv.indexOf("--email") == -1) {
+email = await prompt("| ".gray + "📨 Report Email".blue + " [anonymous]".gray + ": ".blue);
 if (email.trim() == "" || !email) {
     email = "lightspeedreports@xitroo.com"
     console.write("\u001b[K")
     console.write("\u001b[1A")
     console.write("| ".gray + "📨 Report Email:".blue + " anonymous    \n")
     console.log("|  ".gray + "  Using lightspeedreports@xitroo.com");
+}
+} else {
+    let stdinEmail = (process.argv.indexOf("--email") + 1)
+    if (process.argv[stdinEmail].includes("@") && !["anonymous","none","default"].includes(process.argv[stdinEmail])) {
+        email = process.argv[stdinEmail]
+        console.log("| ".gray + "📨 Report Email:".blue + ` ${process.argv[stdinEmail]} ${"(from stdin)".gray}`)
+    } else {
+        if (["anonymous","none","default"].includes(process.argv[stdinEmail])) {
+            email = "lightspeedreports@xitroo.com"
+            console.log("| ".gray + "📨 Report Email:".blue + ` anonymous ${"(from stdin)".gray}`)
+            console.log("|  ".gray + "  Using lightspeedreports@xitroo.com");
+        } else {
+            console.log("| ".gray + "📨 Report Email:".blue + ` ${"invalid".brightRed.bold}\n`)
+            process.exit(1);
+        }
+    }
 }
 let reason:string = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
 if (reason.trim() == "" || !reason) {
