@@ -94,12 +94,27 @@ if (email.trim() == "" || !email) {
         }
     }
 }
-let reason:string = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
+let reason;
+if (process.argv.indexOf("--reason") != -1) {
+    reason = process.argv[process.argv.indexOf("--reason") + 1]
+    if (!reason) {
+        console.log("| ".gray + "❔ Report Reason:".blue + " invalid".bold.brightRed)
+        console.log("| ".gray + "Use none or default to use the defaults.".bold.brightRed)
+    }
+    if (reason == "none" || reason == "default") {
+        reason = "Surfskip Proxy"
+
+    }
+    console.log("| ".gray + "❔ Report Reason: ".blue + reason + " (from stdin)".gray)
+} else {
+reason = await prompt("| ".gray + "❔ Report Reason".blue + " [Surfskip Proxy]".gray + ": ".blue);
 if (reason.trim() == "" || !reason) {
+    
     reason = "Surfskip Proxy"
     console.write("\u001b[K")
     console.write("\u001b[1A")
     console.write("| ".gray + "❔ Report Reason:".blue + " Surfskip Proxy    \n")
+}
 }
 
 console.log("\n🔗" + " Scraping links...".blue)
@@ -142,7 +157,10 @@ for (let i = 0; i < links.length; i++) {
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
     } else {
-        let reportOK = true//await reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
+        let reportOK = true
+        if (process.argv.indexOf("--demo") == -1) {
+        reportOK = await reporter.reportLightspeed(email,links[i].replace("https://","").replaceAll("/",""),reason)
+        } 
         if (reportOK) {
             console.log("| ".gray + `✅ Sent ${links[i].replace("https://","").replaceAll("/","")} to lightspeed!`.green);
         } else {
