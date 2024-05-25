@@ -24,7 +24,7 @@ console.log("Surfskip Fucker 2.0".rainbow + " | ".gray + "by: rare1k\n".blue.bol
 console.log("🧑‍🌾" + " Scraping Method: ".blue)
 console.log("| ".gray + "🔗" + " [1]".brightBlue.bold + " links.surfskip.com")
 console.log("| ".gray + "📄" + " [2]".brightBlue.bold + " Google Docs")
-console.log("| ".gray + "🌐" + " [3]".yellow.bold + " Censys API Search" + " (not implemented)".gray)
+console.log("| ".gray + "🌐" + " [3]".yellow.bold + " BOTH".bold)
 console.log("| ".gray + "🚪" + " [0]".brightRed.bold + " Exit".red.bold)
 console.log("| ".gray);
 let method;
@@ -33,9 +33,6 @@ method = await prompt("| Type your option: ".gray);
 if (Number(method) == 0) {
     console.log("\n🚪" + " Exiting...");
     process.exit(0)
-} else
-if (Number(method) == 3) {
-    console.log("  ❌" + " Option not implemented.".red.bold);
 } else
 if (Number(method)) {
     break;
@@ -91,6 +88,11 @@ switch (Number(method)) {
         break;
     case 2:
         links = await scraper.scrapeGoogleDoc();
+        console.log("| ".gray + "🔗" + " Got ".blue + String(links.length).green.bold + " links!".blue);
+        break;
+    case 3:
+        links = await scraper.scrapeGoogleDoc();
+        links = links.concat(await scraper.scrapeLinks())
         console.log("| ".gray + "🔗" + " Got ".blue + String(links.length).green.bold + " links!".blue);
         break;
 }
