@@ -29,7 +29,18 @@ console.log("| ".gray + "🚪" + " [0]".brightRed.bold + " Exit".red.bold)
 console.log("| ".gray);
 let method;
 while (true) {
+    if (process.argv.indexOf("--method") != -1) {
+        method = (process.argv.indexOf("--method")) + 1
+        if (!process.argv[method] || !Number(process.argv[method])) {
+            console.log("\n❌" + " Use --method followed by a number.".brightRed.bold);
+            console.log("🚪" + " Exiting...");
+            process.exit(0)
+        }
+        console.log("| Type your option: ".gray + process.argv[method] + " (from stdin)".gray)
+        
+    } else {
 method = await prompt("| Type your option: ".gray);
+    }
 if (Number(method) == 0) {
     console.log("\n🚪" + " Exiting...");
     process.exit(0)
