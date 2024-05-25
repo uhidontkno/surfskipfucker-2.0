@@ -1,3 +1,7 @@
+if (process.argv.includes("--help")) {
+    await import("./modules/help.ts");process.exit(0)
+}
+
 const colors = require('colors');
 
 import { mkdir } from "node:fs/promises";
