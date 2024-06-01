@@ -153,7 +153,7 @@ for (let i = 0; i < links.length; i++) {
         // silently skip for formatting purposes
         skipped++;
     } else 
-    if (category[0].includes("security") || category[0].includes("proxy") || category[1].includes("security") || category[1].includes("proxy") ) {
+    if (String(category[0]).includes("security") || String(category[0]).includes("proxy") || String(category[1]).includes("security") || String(category[1]).includes("proxy") ) {
         
         console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because already blocked`.red);
         skipped++;
@@ -169,8 +169,6 @@ for (let i = 0; i < links.length; i++) {
         }
     }  
 } catch (e) {
-    console.write("\u001b[2A")
-    console.write("\u001b[32D") 
     console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because ${e} (Debug: ${category})`.red);
     skipped++;
 } 
