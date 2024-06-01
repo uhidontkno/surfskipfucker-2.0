@@ -147,6 +147,7 @@ for (let i = 0; i < links.length; i++) {
     console.write("\u001b[2A")
     console.write("\u001b[32D")
     let category = await filters.lightspeed(links[i])
+    try {
     // console.write(category[0]) //debug
     if (remove.includes(links[i].replace("https://",""))) {
         // silently skip for formatting purposes
@@ -166,7 +167,13 @@ for (let i = 0; i < links.length; i++) {
         } else {
             console.log("| ".gray + `❗ Failed to report ${links[i]}.`.red); skipped++;
         }
-    }   
+    }  
+} catch (e) {
+    console.write("\u001b[2A")
+    console.write("\u001b[32D") 
+    console.log("| ".gray + `❗ Skipped ${links[i].replace("https://","").replaceAll("/","")} because ${e} (Debug: ${category})`.red);
+    skipped++;
+} 
     console.write("                                             \n")
     console.write("                                             \n")
     console.write("\u001b[K")
